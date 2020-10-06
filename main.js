@@ -105,10 +105,12 @@ const ticTacToe = (row, column) => {
   // then check for a win
   checkForWin();
   // switch player
-  if (playerTurn === "X") {
-    playerTurn = "O";
-  } else {
-    playerTurn = "X";
+  if (!checkForWin()) {
+    if (playerTurn === "X") {
+      playerTurn = "O";
+    } else {
+      playerTurn = "X";
+    }
   }
 };
 
@@ -169,16 +171,11 @@ if (typeof describe === "function") {
       assert.equal(diagonalWin(), true);
     });
     it("should detect a win", () => {
-      board = [
-        ["X", "O", "X"],
-        ["O", "X", "O"],
-        [" ", " ", "X"],
-      ];
-      board = [
-        ["X", "X", "X"],
-        [" ", "O", " "],
-        ["O ", "O", "X"],
-      ];
+      ticTacToe(0, 0);
+      ticTacToe(0, 1);
+      ticTacToe(1, 1);
+      ticTacToe(0, 2);
+      ticTacToe(2, 2);
       assert.equal(checkForWin(), true);
     });
   });
