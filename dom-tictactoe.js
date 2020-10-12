@@ -30,7 +30,7 @@ const addMarker = (id) => {
   console.log(`We'll place a mark on square: ${id}`)
   // @TODO, Mix & Match. 
   // You will need the following pieces:
-  
+
   // = currentMarker
   // .getElementById(id)
   // document
@@ -38,6 +38,9 @@ const addMarker = (id) => {
   
   // Arrange the above pieces into one a single line of code
   // to add an X or O to the board to the DOM so it can be scene on the screen.
+
+  let currSquare = document.getElementById(id);
+  currSquare.innerHTML = currentMarker;
 }
 
 // passes the element's id attribute from HTML to be used
@@ -51,6 +54,8 @@ const updateBoard = (id) => {
 
   // @TODO, Your code here: use the above information to change the board variable(array of arrays)
   // HINT: in your browser open up the dev tools -> console
+
+  board[row][column] = currentMarker;
 }
 
 const checkForWin = () => {
@@ -66,14 +71,59 @@ const checkForWin = () => {
 
 const horizontalWin = () => {
   // @TODO, Your code here: to check for horizontal wins
+  let win;
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] !== currentMarker) {
+        win = false;
+        break;
+      } else {
+        win = true;
+      }
+    }
+    if (win === true) {
+      console.log("Horz win");
+      break;
+    }
+  }
+  return win;
 }
 
 const verticalWin = () => {
   // @TODO, Your code here: to check for vertical wins
+  let win;
+
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[j][i] !== currentMarker) {
+        win = false;
+        break;
+      } else {
+        win = true;
+      }
+    }
+    if (win === true) {
+      console.log("Vert win");
+      break;
+    }
+  }
+  return win;
 }
 
 const diagonalWin = () => {
   // @TODO, Your code here: to check for diagonal wins
+  if (
+    (board[0][0] === currentMarker &&
+      board[1][1] === currentMarker &&
+      board[2][2] === currentMarker) ||
+    (board[0][2] === currentMarker &&
+      board[1][1] === currentMarker &&
+      board[2][0] === currentMarker)
+  ) {
+    return true;
+    console.log("Diag win");
+  }
 }
 
 const changeMarker = () => {
@@ -95,6 +145,11 @@ const resetBoard = () => {
   }
   
   // @TODO, Your code here: make sure to reset the array of arrays to empty for a new game
+  board = [
+    [" ", " ", " "],
+    [" ", " ", " "],
+    [" ", " ", " "],
+  ];
 }
 
 // **BONUSES**
